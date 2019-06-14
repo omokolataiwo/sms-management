@@ -12,4 +12,8 @@ export default class {
       });
     });
   }
+
+  static getAllSms(contactId) {
+    return [];
+  }
 }
