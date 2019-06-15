@@ -3,7 +3,7 @@ import contactController from '../controllers/ContactController';
 
 const router = Router();
 
-router.get('/add', contactController.add);
-router.get('/delete', contactController.delete);
+router.post('/add', contactController.add);
+router.delete('/delete', contactController.delete);
 
 export default router;
