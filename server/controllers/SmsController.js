@@ -40,6 +40,8 @@ class SmsController {
   }
   static async getAllSms(req, res) {
     const {contactId} = req.params;
+    const {sent} = req.query;
+
     try {
       const contact = await contactDao.findContact(contactId);
 
@@ -49,7 +51,7 @@ class SmsController {
           message: 'Contact does not exist.',
         });
       }
-      const sms = smsDao.getAllSms(contactId);
+      const sms = await smsDao.getAllSms(contactId, sent);
       return res
         .status(200)
         .json({status: STATUS_CODES[200], payload: {sms, contact}});
