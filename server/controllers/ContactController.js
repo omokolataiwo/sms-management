@@ -39,8 +39,25 @@ class ContactController {
       return res.status(500).json('Internal server error.');
     }
   }
-  static delete(req, res) {
-    return res.send('contact delete');
+  static async delete(req, res) {
+    const {contactId} = req.params;
+
+    try {
+      const existingContact = contactDao.findContact(contactId);
+
+      if (!existingContact) {
+        return res
+          .status(404)
+          .json({status: STATUS_CODE[404], message: 'Contact does not exist.'});
+      }
+      const contact = await contactDao.delete(contactId);
+      return res
+        .status(200)
+        .json({status: STATUS_CODE[200], payload: {contact}});
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({message: 'Internal server error.'});
+    }
   }
 }
 export default ContactController;
