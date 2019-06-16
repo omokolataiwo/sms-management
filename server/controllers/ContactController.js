@@ -30,10 +30,10 @@ class ContactController {
         });
       }
 
-      const contact = await contactDao.add(name, phoneNumber);
+      const contactId = await contactDao.add(name, phoneNumber);
       return res
         .status(201)
-        .json({status: STATUS_CODE[201], payload: {contact}});
+        .json({status: STATUS_CODE[201], payload: {contactId}});
     } catch (error) {
       console.log(error);
       return res.status(500).json('Internal server error.');
@@ -43,7 +43,7 @@ class ContactController {
     const {contactId} = req.params;
 
     try {
-      const existingContact = contactDao.findContact(contactId);
+      const existingContact = await contactDao.findContact(contactId);
 
       if (!existingContact) {
         return res

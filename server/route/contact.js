@@ -4,6 +4,6 @@ import contactController from '../controllers/ContactController';
 const router = Router();
 
 router.post('/add', contactController.add);
-router.delete('/delete', contactController.delete);
+router.delete('/delete/:contactId', contactController.delete);
 
 export default router;
